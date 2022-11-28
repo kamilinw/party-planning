@@ -13,7 +13,7 @@ export const MongodbDataSource = new DataSource({
   ssl: true,
   authSource: "admin",
   retryWrites: true,
-  entities: ["src/model/entity/**/*.ts"],
+  entities: ["src/models/entity/**/*.ts"],
   migrations: ["src/migration/**/*.ts"],
   subscribers: ["src/subscriber/**/*.ts"],
   logging: true
