@@ -5,5 +5,5 @@ export class PartyDto {
   name: string;
 
   @Required()
-  numberOfGuests: number;
+  date: Date;
 }

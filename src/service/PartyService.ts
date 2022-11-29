@@ -13,6 +13,14 @@ export class PartyService {
   }
 
   async createParty(partyDto: PartyDto) {
-    return await this.repository.save({ ...partyDto });
+    const progress = 0;
+    const plannedBudget = 0;
+    const expenses = 0;
+    const guests = 0;
+    const tasks = 0;
+    const result = await this.repository.create({ ...partyDto, progress, plannedBudget, expenses, guests, tasks });
+    const party = await this.repository.save(result);
+    console.log("Party id: ", party.id);
+    return party;
   }
 }

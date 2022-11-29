@@ -5,7 +5,7 @@ import "@tsed/platform-express"; // /!\ keep this import
 import "@tsed/ajv";
 import { config } from "./config/index";
 import * as rest from "./controllers/index";
-import { MongodbDataSource } from "./datasources/MongodbDatasource";
+import { PostgresDataSource } from "./datasources/PostgresDatasource";
 
 export const rootDir = __dirname;
 
@@ -26,7 +26,7 @@ export const rootDir = __dirname;
     "json-parser",
     { use: "urlencoded-parser", options: { extended: true } }
   ],
-  imports: [MongodbDataSource],
+  imports: [PostgresDataSource],
   views: {
     root: join(process.cwd(), "../views"),
     extensions: {

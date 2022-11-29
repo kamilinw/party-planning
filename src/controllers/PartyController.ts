@@ -10,8 +10,9 @@ export class PartyController {
   constructor(private partyService: PartyService) {}
 
   @Post("/")
-  @Returns(201, Party)
-  addParty(@BodyParams() partyDto: PartyDto) {
-    return this.partyService.createParty(partyDto);
+  @Returns(201)
+  async addParty(@BodyParams() partyDto: PartyDto): Promise<Party> {
+    const party = await this.partyService.createParty(partyDto);
+    return { ...party };
   }
 }
