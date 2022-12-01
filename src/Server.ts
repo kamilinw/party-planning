@@ -6,6 +6,10 @@ import "@tsed/ajv";
 import { config } from "./config/index";
 import * as rest from "./controllers/index";
 import { PostgresDataSource } from "./datasources/PostgresDatasource";
+import { ClassTransformerPipe } from "./pipes/ClassTransformerPipe";
+import { ErrorHandlerMiddleware } from "./middlewares/ErrorHandlerMiddleware";
+import { NotFoundMiddleware } from "./middlewares/NotFoundMiddleware";
+import { ClassValidationPipe } from "./pipes/ClassValidationPipe";
 
 export const rootDir = __dirname;
 
@@ -13,8 +17,7 @@ export const rootDir = __dirname;
   ...config,
   acceptMimes: ["application/json"],
   httpPort: process.env.PORT || 8083,
-  httpsPort: false, // CHANGE
-  componentsScan: [`${rootDir}/service/*{.ts,.js}`, `${rootDir}/repository/*{.ts,.js}`],
+  httpsPort: false,
   mount: {
     "/rest": [...Object.values(rest)]
   },
@@ -26,7 +29,7 @@ export const rootDir = __dirname;
     "json-parser",
     { use: "urlencoded-parser", options: { extended: true } }
   ],
-  imports: [PostgresDataSource],
+  imports: [PostgresDataSource, ClassTransformerPipe, ClassValidationPipe],
   views: {
     root: join(process.cwd(), "../views"),
     extensions: {
@@ -38,6 +41,10 @@ export const rootDir = __dirname;
 export class Server {
   @Inject()
   protected app: PlatformApplication;
+
+  public $afterRoutesInit(): void {
+    this.app.use(NotFoundMiddleware).use(ErrorHandlerMiddleware);
+  }
 
   @Configuration()
   protected settings: Configuration;
