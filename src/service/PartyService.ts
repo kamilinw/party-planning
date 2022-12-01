@@ -1,4 +1,5 @@
 import { Inject, Service } from "@tsed/di";
+import { ResourceNotFoundException } from "../exception";
 import { PartyDto } from "../models/dto/PartyDto";
 import { PARTY_REPOSITORY } from "../repository/PartyRepository";
 
@@ -7,9 +8,10 @@ export class PartyService {
   @Inject(PARTY_REPOSITORY)
   protected repository: PARTY_REPOSITORY;
 
-  async getParty(id: number) {
-    const party = await this.repository.createQueryBuilder().where("id = :id", { id });
-    return party;
+  getParty(id: string) {
+    return this.repository.findOneByOrFail({ id }).catch((error) => {
+      throw new ResourceNotFoundException(error.message);
+    });
   }
 
   async createParty(partyDto: PartyDto) {
