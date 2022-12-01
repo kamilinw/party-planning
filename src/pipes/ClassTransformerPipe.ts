@@ -5,7 +5,7 @@ import { plainToInstance } from "class-transformer";
 
 @OverrideProvider(DeserializerPipe)
 export class ClassTransformerPipe implements PipeMethods {
-  transform(value: any, metadata: JsonParameterStore) {
+  transform(value: unknown, metadata: JsonParameterStore) {
     return plainToInstance(metadata.type, value);
   }
 }
