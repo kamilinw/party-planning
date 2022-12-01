@@ -1,5 +1,5 @@
 import { Inject, Service } from "@tsed/di";
-import { ResourceNotFoundException } from "../exception";
+import { ResourceNotFoundException } from "../models/exception";
 import { PartyDto } from "../models/dto/PartyDto";
 import { PARTY_REPOSITORY } from "../repository/PartyRepository";
 

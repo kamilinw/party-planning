@@ -2,8 +2,8 @@
 import { Err, Middleware, MiddlewareMethods, Next, Req, Res } from "@tsed/common";
 import { Exception as TsEdException } from "@tsed/exceptions";
 
-import { ApiException, ExceptionResponse, ResourceNotFoundException } from "../exception";
-import { InternalServerErrorException } from "../exception/InternalServerErrorException";
+import { ApiException, ExceptionResponse, ResourceNotFoundException } from "../models/exception";
+import { InternalServerErrorException } from "../models/exception/InternalServerErrorException";
 
 @Middleware()
 class ErrorHandlerMiddleware implements MiddlewareMethods {

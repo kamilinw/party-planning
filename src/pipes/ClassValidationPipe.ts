@@ -3,7 +3,7 @@ import { JsonParameterStore, PipeMethods } from "@tsed/schema";
 import { OverrideProvider } from "@tsed/di";
 import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
-import { ValidationException } from "../exception/ValidationException";
+import { ValidationException } from "../models/exception/ValidationException";
 
 @OverrideProvider(ValidationPipe)
 export class ClassValidationPipe extends ValidationPipe implements PipeMethods<unknown> {
