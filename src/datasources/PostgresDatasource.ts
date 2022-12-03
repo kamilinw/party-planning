@@ -2,6 +2,7 @@ import { registerProvider } from "@tsed/di";
 import { DataSource } from "typeorm";
 import { Logger } from "@tsed/logger";
 import { Party } from "../models/entity/Party";
+import { Guest } from "../models/entity/Guest";
 
 export const rootDir = __dirname;
 
@@ -20,7 +21,7 @@ export const PostgresDataSource = new DataSource({
     }
   },
   //entities: [`${rootDir}/model/entity/*{.ts,.js}`],
-  entities: [Party],
+  entities: [Party, Guest],
   synchronize: true,
   logging: true
 });

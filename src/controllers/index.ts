@@ -3,3 +3,4 @@
  */
 
 export * from "./PartyController";
+export * from "./GuestController";
