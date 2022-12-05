@@ -7,7 +7,7 @@ export class Guest {
   @PrimaryGeneratedColumn("uuid", {
     name: "id"
   })
-  id: string;
+  id?: string;
 
   @Column()
   @Required()
@@ -30,11 +30,11 @@ export class Guest {
   confirmed: boolean;
 
   @ManyToOne(() => Party, (party) => party.guests)
-  party: Party;
+  party?: Party;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt?: Date;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt?: Date;
 }
