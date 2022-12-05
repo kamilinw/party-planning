@@ -19,7 +19,7 @@ export const rootDir = __dirname;
   httpPort: process.env.PORT || 8083,
   httpsPort: false,
   mount: {
-    "/rest": [...Object.values(rest)]
+    "/api/v1": [...Object.values(rest)]
   },
   middlewares: [
     "cors",
