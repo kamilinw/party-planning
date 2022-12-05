@@ -18,6 +18,18 @@ export class PartyService {
     });
   }
 
+  getAllGuests(id: string) {
+    return this.repository
+      .createQueryBuilder("party")
+      .innerJoinAndSelect("party.guests", "guests")
+      .where("party.id = :id", { id })
+      .getOneOrFail()
+      .then((party) => party.guests ?? [])
+      .catch((error) => {
+        throw new ResourceNotFoundException(error.message);
+      });
+  }
+
   async createParty(partyDto: PartyDto) {
     const party = this.partyMapper.toEntity(partyDto);
     party.guests = partyDto.guestIds ? await this.guestService.getGuestsByIds(partyDto.guestIds) : undefined;
