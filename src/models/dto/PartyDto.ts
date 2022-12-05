@@ -1,5 +1,5 @@
 import { Required } from "@tsed/schema";
-import { IsDateString, IsEmail } from "class-validator";
+import { IsArray, IsDateString, IsOptional, IsString } from "class-validator";
 
 export class PartyDto {
   @Required()
@@ -9,7 +9,8 @@ export class PartyDto {
   @IsDateString()
   date: Date;
 
-  @Required()
-  @IsEmail({}, { message: "Email must be an valid email" })
-  email: string;
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  guestIds?: string[];
 }

@@ -8,7 +8,7 @@ export class Party {
   @PrimaryGeneratedColumn("uuid", {
     name: "id"
   })
-  id: string;
+  id?: string;
 
   @Column()
   @Required()
@@ -32,15 +32,15 @@ export class Party {
   expenses: number;
 
   @OneToMany(() => Guest, (guest) => guest.party)
-  guests: Guest[];
+  guests?: Guest[];
 
   @Column()
   @Required()
-  tasks: number; //TODO replace with array of Task entity
+  tasks?: number; //TODO replace with array of Task entity
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt?: Date;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt?: Date;
 }

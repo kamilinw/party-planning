@@ -4,6 +4,8 @@ import { GuestDto } from "../models/dto/GuestDto";
 import { GUEST_REPOSITORY } from "../repository/GuestRepository";
 import { PARTY_REPOSITORY } from "../repository/PartyRepository";
 import { GuestMapper } from "../mapper/GuestMapper";
+import { Guest } from "src/models/entity/Guest";
+import { In } from "typeorm";
 
 @Service()
 export class GuestService {
@@ -14,6 +16,19 @@ export class GuestService {
   protected partyRepository: PARTY_REPOSITORY;
 
   constructor(private guestMapper: GuestMapper) {}
+
+  async getGuestsByIds(guestIds: string[]): Promise<Guest[]> {
+    const guests = await this.guestRepository.findBy({ id: In(guestIds) }).catch((error) => {
+      throw new ResourceNotFoundException(error);
+    });
+    if (guests.length !== guestIds.length) {
+      const foundIds = guests.map((guest) => guest.id);
+      const notFoundIds = guestIds.filter((id) => foundIds.indexOf(id) < 0);
+      throw new ResourceNotFoundException(`Could not find guests with ids: [${notFoundIds.join(", ")}]`);
+    }
+
+    return guests;
+  }
 
   getGuest(id: string) {
     return this.guestRepository.findOneByOrFail({ id }).catch((error) => {
