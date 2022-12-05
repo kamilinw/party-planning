@@ -1,5 +1,6 @@
 import { Required } from "@tsed/schema";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Party } from "./Party";
 
 @Entity()
 export class Guest {
@@ -27,6 +28,9 @@ export class Guest {
   @Column()
   @Required()
   confirmed: boolean;
+
+  @ManyToOne(() => Party, (party) => party.guests)
+  party: Party;
 
   @UpdateDateColumn()
   updatedAt: Date;
