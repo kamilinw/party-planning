@@ -26,7 +26,6 @@ export class GuestService {
       const notFoundIds = guestIds.filter((id) => foundIds.indexOf(id) < 0);
       throw new ResourceNotFoundException(`Could not find guests with ids: [${notFoundIds.join(", ")}]`);
     }
-
     return guests;
   }
 
@@ -34,6 +33,16 @@ export class GuestService {
     return this.guestRepository.findOneByOrFail({ id }).catch((error) => {
       throw new ResourceNotFoundException(error.message);
     });
+  }
+
+  getGuestCountWithPartyId(id: string) {
+    return this.guestRepository
+      .createQueryBuilder("guest")
+      .where("guest.partyId = :id", { id })
+      .getCount()
+      .catch((error) => {
+        throw new ResourceNotFoundException(error.message);
+      });
   }
 
   async createGuest(guestDto: GuestDto) {

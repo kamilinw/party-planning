@@ -20,7 +20,6 @@ export const PostgresDataSource = new DataSource({
       rejectUnauthorized: false
     }
   },
-  //entities: [`${rootDir}/model/entity/*{.ts,.js}`],
   entities: [Party, Guest],
   synchronize: true,
   logging: true
