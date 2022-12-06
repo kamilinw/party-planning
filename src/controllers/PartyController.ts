@@ -1,7 +1,7 @@
 import { Controller } from "@tsed/di";
 import { Get, Post, Returns } from "@tsed/schema";
 import { PartyDto } from "../models/dto/PartyDto";
-import { PartyService } from "../service/PartyService";
+import { PartyService } from "../services/PartyService";
 import { Party } from "../models/entity/Party";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { Guest } from "../models/entity/Guest";

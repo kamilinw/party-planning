@@ -1,9 +1,9 @@
 import { Inject, Service } from "@tsed/di";
 import { ResourceNotFoundException } from "../models/exception";
 import { GuestDto } from "../models/dto/GuestDto";
-import { GUEST_REPOSITORY } from "../repository/GuestRepository";
-import { PARTY_REPOSITORY } from "../repository/PartyRepository";
-import { GuestMapper } from "../mapper/GuestMapper";
+import { GUEST_REPOSITORY } from "../repositories/GuestRepository";
+import { PARTY_REPOSITORY } from "../repositories/PartyRepository";
+import { GuestMapper } from "../mappers/GuestMapper";
 import { Guest } from "src/models/entity/Guest";
 import { In } from "typeorm";
 

@@ -1,6 +1,6 @@
 import { Controller } from "@tsed/di";
 import { Get, Post, Returns } from "@tsed/schema";
-import { GuestService } from "../service/GuestService";
+import { GuestService } from "../services/GuestService";
 import { Guest } from "../models/entity/Guest";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { GuestDto } from "../models/dto/GuestDto";

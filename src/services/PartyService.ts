@@ -1,8 +1,8 @@
 import { Inject, Service } from "@tsed/di";
 import { ResourceNotFoundException } from "../models/exception";
 import { PartyDto } from "../models/dto/PartyDto";
-import { PARTY_REPOSITORY } from "../repository/PartyRepository";
-import { PartyMapper } from "../mapper/PartyMapper";
+import { PARTY_REPOSITORY } from "../repositories/PartyRepository";
+import { PartyMapper } from "../mappers/PartyMapper";
 import { GuestService } from "./GuestService";
 
 @Service()
