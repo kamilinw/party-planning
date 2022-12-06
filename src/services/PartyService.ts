@@ -1,16 +1,12 @@
 import { Inject, Service } from "@tsed/di";
 import { ResourceNotFoundException } from "../models/exception";
-import { PartyDto } from "../models/dto/PartyDto";
 import { PARTY_REPOSITORY } from "../repositories/PartyRepository";
-import { PartyMapper } from "../mappers/PartyMapper";
-import { GuestService } from "./GuestService";
+import { Party } from "../models/entity/Party";
 
 @Service()
 export class PartyService {
   @Inject(PARTY_REPOSITORY)
   protected partyRepository: PARTY_REPOSITORY;
-
-  constructor(private partyMapper: PartyMapper, private guestService: GuestService) {}
 
   getParty(id: string) {
     return this.partyRepository.findOneByOrFail({ id }).catch((error) => {
@@ -30,17 +26,7 @@ export class PartyService {
       });
   }
 
-  getGuestsCount(id: string) {
-    return this.guestService.getGuestCountWithPartyId(id);
-  }
-
-  async createParty(partyDto: PartyDto) {
-    const party = this.partyMapper.toEntity(partyDto);
-    party.guests = partyDto.guestIds ? await this.guestService.getGuestsByIds(partyDto.guestIds) : undefined;
-    console.log("Guests: ", party.guests);
-    const result = await this.partyRepository.create(party);
-    const savedParty = await this.partyRepository.save(result);
-    console.log("Party id: ", savedParty.id);
-    return savedParty;
+  async saveParty(party: Party) {
+    return await this.partyRepository.save(party);
   }
 }
