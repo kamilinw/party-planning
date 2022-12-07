@@ -16,22 +16,23 @@ export class Task {
   name: string;
 
   @Column({
-    length: 256
+    length: 256,
+    nullable: true
   })
   description?: string;
 
-  @Column()
+  @Column({ nullable: true })
   plannedCost?: number;
 
-  @Column()
+  @Column({ nullable: true })
   @Required()
   actualCost: number;
 
-  @Column()
+  @Column({ default: false })
   @Required()
   done: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   executionDate?: Date;
 
   @ManyToOne(() => Party, (party) => party.tasks)

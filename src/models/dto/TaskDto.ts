@@ -1,20 +1,30 @@
-import { Default, Required } from "@tsed/schema";
-import { MaxLength } from "class-validator";
+import { Required } from "@tsed/schema";
+import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString, MaxLength } from "class-validator";
 
 export class TaskDto {
   @Required()
+  @IsString()
   @MaxLength(64)
   name: string;
 
+  @IsOptional()
+  @IsString()
   @MaxLength(256)
-  description: string;
+  description?: string;
 
-  plannedCost: number;
+  @IsOptional()
+  @IsNumber()
+  plannedCost?: number;
 
-  actualCost: number;
+  @IsOptional()
+  @IsNumber()
+  actualCost?: number;
 
-  @Default(false)
-  done: boolean;
+  @IsOptional()
+  @IsBoolean()
+  done?: boolean;
 
+  @IsOptional()
+  @IsDateString()
   executionDate?: Date;
 }
