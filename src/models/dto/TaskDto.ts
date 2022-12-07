@@ -1,5 +1,5 @@
 import { Required } from "@tsed/schema";
-import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString, MaxLength } from "class-validator";
+import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString, IsUUID, MaxLength } from "class-validator";
 
 export class TaskDto {
   @Required()
@@ -27,4 +27,8 @@ export class TaskDto {
   @IsOptional()
   @IsDateString()
   executionDate?: Date;
+
+  @Required()
+  @IsUUID()
+  partyId: string;
 }
