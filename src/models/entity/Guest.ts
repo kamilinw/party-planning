@@ -9,11 +9,15 @@ export class Guest {
   })
   id?: string;
 
-  @Column()
+  @Column({
+    length: 32
+  })
   @Required()
   firstName: string;
 
-  @Column()
+  @Column({
+    length: 32
+  })
   @Required()
   lastName: string;
 

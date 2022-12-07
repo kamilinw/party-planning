@@ -10,7 +10,9 @@ export class Party {
   })
   id?: string;
 
-  @Column()
+  @Column({
+    length: 64
+  })
   @Required()
   name: string;
 
