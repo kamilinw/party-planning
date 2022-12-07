@@ -3,6 +3,7 @@ import { DataSource } from "typeorm";
 import { Logger } from "@tsed/logger";
 import { Party } from "../models/entity/Party";
 import { Guest } from "../models/entity/Guest";
+import { Task } from "../models/entity/Task";
 
 export const rootDir = __dirname;
 
@@ -20,7 +21,7 @@ export const PostgresDataSource = new DataSource({
       rejectUnauthorized: false
     }
   },
-  entities: [Party, Guest],
+  entities: [Party, Guest, Task],
   synchronize: true,
   logging: true
 });
