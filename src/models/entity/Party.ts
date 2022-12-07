@@ -21,23 +21,19 @@ export class Party {
   @IsDate()
   date: Date;
 
-  @Column()
-  @Required()
-  progress: number;
+  @Column({ default: 0 })
+  progress?: number;
 
-  @Column()
-  @Required()
-  plannedBudget: number;
+  @Column({ default: 0 })
+  plannedBudget?: number;
 
-  @Column()
-  @Required()
-  expenses: number;
+  @Column({ default: 0 })
+  expenses?: number;
 
   @OneToMany(() => Guest, (guest) => guest.party)
   guests?: Guest[];
 
-  @Column()
-  @Required()
+  @Column({ default: 0 })
   tasks?: number; //TODO replace with array of Task entity
 
   @UpdateDateColumn()

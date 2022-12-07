@@ -24,13 +24,11 @@ export class Task {
   @Column({ nullable: true })
   plannedCost?: number;
 
-  @Column({ nullable: true })
-  @Required()
-  actualCost: number;
+  @Column({ default: 0 })
+  actualCost?: number;
 
   @Column({ default: false })
-  @Required()
-  done: boolean;
+  done?: boolean;
 
   @Column({ nullable: true })
   executionDate?: Date;
