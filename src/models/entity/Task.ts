@@ -4,6 +4,7 @@ import { Party } from "./Party";
 
 @Entity()
 export class Task {
+  @Required()
   @PrimaryGeneratedColumn("uuid", {
     name: "id"
   })
@@ -19,26 +20,33 @@ export class Task {
     length: 256,
     nullable: true
   })
+  @Required()
   description?: string;
 
   @Column({ nullable: true })
+  @Required()
   plannedCost?: number;
 
   @Column({ default: 0 })
+  @Required()
   actualCost?: number;
 
   @Column({ default: false })
+  @Required()
   done?: boolean;
 
   @Column({ nullable: true })
+  @Required()
   executionDate?: Date;
 
   @ManyToOne(() => Party, (party) => party.tasks)
   party?: Party;
 
   @UpdateDateColumn()
+  @Required()
   updatedAt?: Date;
 
   @CreateDateColumn()
+  @Required()
   createdAt?: Date;
 }

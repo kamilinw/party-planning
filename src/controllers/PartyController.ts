@@ -6,6 +6,7 @@ import { Party } from "../models/entity/Party";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { Guest } from "../models/entity/Guest";
 import { guestCount } from "../models/dto/GuestCount";
+import { Task } from "src/models/entity/Task";
 
 @Controller("/party")
 export class PartyController {
@@ -26,6 +27,14 @@ export class PartyController {
   async getGuestsCount(@PathParams("id") id: string): Promise<guestCount> {
     const count = await this.partyFacade.getGuestsCount(id);
     return { numberOfGuests: count };
+  }
+
+  @Get("/:id/task")
+  @Returns(Array<Task>)
+  async getAllTasks(@PathParams("id") id: string): Promise<Task[]> {
+    const tasks = await this.partyFacade.getAllTasks(id);
+    console.log(tasks);
+    return tasks;
   }
 
   @Post("/")

@@ -3,10 +3,16 @@ import { PartyDto } from "../models/dto/PartyDto";
 import { PartyMapper } from "../mappers/PartyMapper";
 import { GuestService } from "../services/GuestService";
 import { PartyService } from "../services/PartyService";
+import { TaskService } from "../services/TaskService";
 
 @Service()
 export class PartyFacade {
-  constructor(private partyMapper: PartyMapper, private guestService: GuestService, private partyService: PartyService) {}
+  constructor(
+    private partyMapper: PartyMapper,
+    private guestService: GuestService,
+    private partyService: PartyService,
+    private taskService: TaskService
+  ) {}
 
   getParty(id: string) {
     return this.partyService.getParty(id);
@@ -18,6 +24,10 @@ export class PartyFacade {
 
   getGuestsCount(id: string) {
     return this.guestService.getGuestCountWithPartyId(id);
+  }
+
+  getAllTasks(id: string) {
+    return this.partyService.getAllTasks(id);
   }
 
   async createParty(partyDto: PartyDto) {

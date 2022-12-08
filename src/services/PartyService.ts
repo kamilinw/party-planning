@@ -26,6 +26,18 @@ export class PartyService {
       });
   }
 
+  getAllTasks(id: string) {
+    return this.partyRepository
+      .createQueryBuilder("party")
+      .innerJoinAndSelect("party.tasks", "tasks")
+      .where("party.id = :id", { id })
+      .getOneOrFail()
+      .then((party) => party.tasks ?? [])
+      .catch((error) => {
+        throw new ResourceNotFoundException(error.message);
+      });
+  }
+
   async saveParty(party: Party) {
     return await this.partyRepository.save(party);
   }
