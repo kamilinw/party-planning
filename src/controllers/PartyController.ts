@@ -13,9 +13,8 @@ export class PartyController {
   constructor(private partyFacade: PartyFacade) {}
 
   @Get("/:id")
-  async getParty(@PathParams("id") id: string): Promise<Party> {
-    const party = await this.partyFacade.getParty(id);
-    return { ...party };
+  getParty(@PathParams("id") id: string): Promise<Party> {
+    return this.partyFacade.getParty(id);
   }
 
   @Get("/:id/guest")
@@ -30,17 +29,13 @@ export class PartyController {
   }
 
   @Get("/:id/task")
-  @Returns(Array<Task>)
-  async getAllTasks(@PathParams("id") id: string): Promise<Task[]> {
-    const tasks = await this.partyFacade.getAllTasks(id);
-    console.log(tasks);
-    return tasks;
+  getAllTasks(@PathParams("id") id: string): Promise<Task[]> {
+    return this.partyFacade.getAllTasks(id);
   }
 
   @Post("/")
   @Returns(201)
-  async addParty(@BodyParams({ useValidation: true }) partyDto: PartyDto): Promise<Party> {
-    const party = await this.partyFacade.createParty(partyDto);
-    return { ...party };
+  addParty(@BodyParams({ useValidation: true }) partyDto: PartyDto): Promise<Party> {
+    return this.partyFacade.createParty(partyDto);
   }
 }

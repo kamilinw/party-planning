@@ -7,6 +7,7 @@ export class Guest {
   @PrimaryGeneratedColumn("uuid", {
     name: "id"
   })
+  @Required()
   id?: string;
 
   @Column({
@@ -37,8 +38,10 @@ export class Guest {
   party?: Party;
 
   @UpdateDateColumn()
+  @Required()
   updatedAt?: Date;
 
   @CreateDateColumn()
+  @Required()
   createdAt?: Date;
 }

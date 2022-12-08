@@ -10,9 +10,8 @@ export class GuestController {
   constructor(private guestFacade: GuestFacade) {}
 
   @Get("/:id")
-  async getGuest(@PathParams("id") id: string): Promise<Guest> {
-    const guest = await this.guestFacade.getGuest(id);
-    return { ...guest };
+  getGuest(@PathParams("id") id: string): Promise<Guest> {
+    return this.guestFacade.getGuest(id);
   }
 
   @Post("/")

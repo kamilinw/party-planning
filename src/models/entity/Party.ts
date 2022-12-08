@@ -9,6 +9,7 @@ export class Party {
   @PrimaryGeneratedColumn("uuid", {
     name: "id"
   })
+  @Required()
   id?: string;
 
   @Column({
@@ -23,12 +24,15 @@ export class Party {
   date: Date;
 
   @Column({ default: 0 })
+  @Required()
   progress?: number;
 
   @Column({ default: 0 })
+  @Required()
   plannedBudget?: number;
 
   @Column({ default: 0 })
+  @Required()
   expenses?: number;
 
   @OneToMany(() => Guest, (guest) => guest.party)
@@ -38,8 +42,10 @@ export class Party {
   tasks?: Task[];
 
   @UpdateDateColumn()
+  @Required()
   updatedAt?: Date;
 
   @CreateDateColumn()
+  @Required()
   createdAt?: Date;
 }
