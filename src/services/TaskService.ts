@@ -2,6 +2,7 @@ import { Inject, Service } from "@tsed/di";
 import { ResourceNotFoundException } from "../models/exception";
 import { TASK_REPOSITORY } from "../repositories/TaskRepository";
 import { Task } from "../models/entity/Task";
+import { ValidationException } from "../models/exception/ValidationException";
 
 @Service()
 export class TaskService {
@@ -11,6 +12,12 @@ export class TaskService {
   getTask(id: string) {
     return this.taskRepository.findOneByOrFail({ id }).catch((error) => {
       throw new ResourceNotFoundException(error.message);
+    });
+  }
+
+  deleteTask(id: string) {
+    return this.taskRepository.delete({ id }).catch((error) => {
+      throw new ValidationException(error.message);
     });
   }
 

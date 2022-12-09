@@ -12,6 +12,10 @@ export class TaskFacade {
     return this.taskService.getTask(id);
   }
 
+  deleteTask(id: string) {
+    return this.taskService.deleteTask(id);
+  }
+
   async createTask(taskDto: TaskDto) {
     const task = this.taskMapper.toEntity(taskDto);
     task.party = await this.partyService.getParty(taskDto.partyId);
