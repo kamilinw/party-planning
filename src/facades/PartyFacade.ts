@@ -22,6 +22,10 @@ export class PartyFacade {
     return this.partyService.getAllGuests(id);
   }
 
+  getPlannedCost(id: string) {
+    return this.partyService.getParty(id);
+  }
+
   getGuestsCount(id: string) {
     return this.guestService.getGuestCountWithPartyId(id);
   }

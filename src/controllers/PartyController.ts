@@ -16,6 +16,10 @@ export class PartyController {
   getParty(@PathParams("id") id: string): Promise<Party> {
     return this.partyFacade.getParty(id);
   }
+  @Get("/:id/plannedCost")
+  getPlannedCost(@PathParams("id") id: string): Promise<Party> {
+    return this.partyFacade.getParty(id);
+  }
 
   @Get("/:id/guest")
   getAllGuests(@PathParams("id") id: string): Promise<Guest[]> {

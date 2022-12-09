@@ -9,9 +9,15 @@ export class PartyService {
   protected partyRepository: PARTY_REPOSITORY;
 
   getParty(id: string) {
-    return this.partyRepository.findOneByOrFail({ id }).catch((error) => {
-      throw new ResourceNotFoundException(error.message);
-    });
+    return this.partyRepository
+      .getPartyById(id)
+      .then((party) => {
+        if (!party) throw { message: `Party with id ${id} not found` };
+        return party;
+      })
+      .catch((error) => {
+        throw new ResourceNotFoundException(error.message);
+      });
   }
 
   getAllGuests(id: string) {

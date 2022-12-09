@@ -23,15 +23,12 @@ export class Party {
   @IsDate()
   date: Date;
 
-  @Column({ default: 0 })
   @Required()
   progress?: number;
 
-  @Column({ default: 0 })
   @Required()
   plannedBudget?: number;
 
-  @Column({ default: 0 })
   @Required()
   expenses?: number;
 
