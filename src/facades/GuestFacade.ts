@@ -28,6 +28,10 @@ export class GuestFacade {
     return this.guestService.getGuestCountWithPartyId(id);
   }
 
+  deleteGuest(id: string) {
+    return this.guestService.deleteGuest(id);
+  }
+
   async createGuest(guestDto: GuestDto) {
     const guest = this.guestMapper.toEntity(guestDto);
     guest.party = guestDto.partyId ? await this.partyService.getParty(guestDto.partyId) : undefined;
