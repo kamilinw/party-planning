@@ -1,13 +1,13 @@
 import { Controller } from "@tsed/di";
-import { Delete, Get, Post, Returns } from "@tsed/schema";
+import { Delete, Get, Post, Put, Returns } from "@tsed/schema";
 import { PartyDto } from "../models/dto/PartyDto";
 import { PartyFacade } from "../facades/PartyFacade";
 import { Party } from "../models/entity/Party";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { Guest } from "../models/entity/Guest";
-import { guestCount } from "../models/dto/GuestCount";
-import { Task } from "src/models/entity/Task";
-import { DeleteResult } from "typeorm";
+import { Task } from "../models/entity/Task";
+import { DeleteResult, UpdateResult } from "typeorm";
+import { PartyUpdate } from "../models/dto/PartyUpdate";
 
 @Controller("/party")
 export class PartyController {
@@ -28,10 +28,9 @@ export class PartyController {
     return this.partyFacade.getAllGuests(id);
   }
 
-  @Get("/:id/guest/count")
-  async getGuestsCount(@PathParams("id") id: string): Promise<guestCount> {
-    const count = await this.partyFacade.getGuestsCount(id);
-    return { numberOfGuests: count };
+  @Put("/:id")
+  updateParty(@PathParams("id") id: string, @BodyParams() partyUpdate: PartyUpdate): Promise<UpdateResult> {
+    return this.partyFacade.updateParty(id, partyUpdate);
   }
 
   @Get("/:id/task")

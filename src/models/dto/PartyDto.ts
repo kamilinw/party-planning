@@ -3,6 +3,7 @@ import { IsArray, IsDateString, IsOptional, IsString } from "class-validator";
 
 export class PartyDto {
   @Required()
+  @IsString()
   name: string;
 
   @Required()

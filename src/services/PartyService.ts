@@ -3,6 +3,7 @@ import { ResourceNotFoundException } from "../models/exception";
 import { PARTY_REPOSITORY } from "../repositories/PartyRepository";
 import { Party } from "../models/entity/Party";
 import { ValidationException } from "../models/exception/ValidationException";
+import { PartyUpdate } from "../models/dto/PartyUpdate";
 
 @Service()
 export class PartyService {
@@ -20,14 +21,25 @@ export class PartyService {
         throw new ResourceNotFoundException(error.message);
       });
 
-    const guestData = await this.partyRepository.getGuestsData(id).then((guestData) => {
-      if (!guestData) throw { message: `Party with id ${id} not found` };
-      return guestData;
-    });
+    const guestData = await this.partyRepository
+      .getGuestsData(id)
+      .then((guestData) => {
+        if (!guestData) throw { message: `Party with id ${id} not found` };
+        return guestData;
+      })
+      .catch((error) => {
+        throw new ResourceNotFoundException(error.message);
+      });
     party.guestConfirmed = guestData.guestConfirmed;
     party.guestInvited = guestData.guestInvited;
 
     return party;
+  }
+
+  async updateParty(id: string, partyUpdate: PartyUpdate) {
+    const updateData = await this.partyRepository.update({ id }, partyUpdate);
+    console.log(updateData);
+    return updateData;
   }
 
   deleteParty(id: string) {

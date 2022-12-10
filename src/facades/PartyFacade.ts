@@ -3,6 +3,7 @@ import { PartyDto } from "../models/dto/PartyDto";
 import { PartyMapper } from "../mappers/PartyMapper";
 import { GuestService } from "../services/GuestService";
 import { PartyService } from "../services/PartyService";
+import { PartyUpdate } from "../models/dto/PartyUpdate";
 
 @Service()
 export class PartyFacade {
@@ -20,12 +21,8 @@ export class PartyFacade {
     return this.partyService.getAllGuests(id);
   }
 
-  getPlannedCost(id: string) {
-    return this.partyService.getParty(id);
-  }
-
-  getGuestsCount(id: string) {
-    return this.guestService.getGuestCountWithPartyId(id);
+  updateParty(id: string, partyUpdate: PartyUpdate) {
+    return this.partyService.updateParty(id, partyUpdate);
   }
 
   getAllTasks(id: string) {
