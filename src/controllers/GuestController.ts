@@ -1,27 +1,34 @@
 import { Controller } from "@tsed/di";
-import { Delete, Get, Post, Returns } from "@tsed/schema";
+import { Delete, Get, Post, Put, Returns } from "@tsed/schema";
 import { GuestFacade } from "../facades/GuestFacade";
 import { Guest } from "../models/entity/Guest";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { GuestDto } from "../models/dto/GuestDto";
+import { GuestUpdate } from "../models/dto/GuestUpdate";
+import { DeleteResult, UpdateResult } from "typeorm";
 
 @Controller("/guest")
 export class GuestController {
   constructor(private guestFacade: GuestFacade) {}
 
   @Get("/:id")
-  getGuest(@PathParams("id") id: string): Promise<Guest> {
+  async getGuest(@PathParams("id") id: string): Promise<Guest> {
     return this.guestFacade.getGuest(id);
   }
 
   @Delete("/:id")
-  async deleteGuest(@PathParams("id") id: string) {
-    return await this.guestFacade.deleteGuest(id);
+  async deleteGuest(@PathParams("id") id: string): Promise<DeleteResult> {
+    return this.guestFacade.deleteGuest(id);
+  }
+
+  @Put("/:id")
+  async updateGuest(@PathParams("id") id: string, @BodyParams() guestUpdate: GuestUpdate): Promise<UpdateResult> {
+    return this.guestFacade.updateGuest(id, guestUpdate);
   }
 
   @Post("/")
   @Returns(201)
-  addGuest(@BodyParams({ useValidation: true }) guestDto: GuestDto): Promise<Guest> {
+  async addGuest(@BodyParams({ useValidation: true }) guestDto: GuestDto): Promise<Guest> {
     return this.guestFacade.createGuest(guestDto);
   }
 }

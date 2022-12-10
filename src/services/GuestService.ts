@@ -5,6 +5,7 @@ import { PARTY_REPOSITORY } from "../repositories/PartyRepository";
 import { Guest } from "src/models/entity/Guest";
 import { In } from "typeorm";
 import { ValidationException } from "../models/exception/ValidationException";
+import { GuestUpdate } from "../models/dto/GuestUpdate";
 
 @Service()
 export class GuestService {
@@ -30,6 +31,12 @@ export class GuestService {
   deleteGuest(id: string) {
     return this.guestRepository.delete({ id }).catch((error) => {
       throw new ValidationException(error.message);
+    });
+  }
+
+  updateGuest(id: string, guestUpdate: GuestUpdate) {
+    return this.guestRepository.update({ id }, guestUpdate).catch((error) => {
+      throw new ResourceNotFoundException(error.message);
     });
   }
 

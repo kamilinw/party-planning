@@ -5,6 +5,7 @@ import { GuestMapper } from "../mappers/GuestMapper";
 import { Guest } from "../models/entity/Guest";
 import { GuestService } from "../services/GuestService";
 import { PartyService } from "../services/PartyService";
+import { GuestUpdate } from "../models/dto/GuestUpdate";
 
 @Service()
 export class GuestFacade {
@@ -30,6 +31,10 @@ export class GuestFacade {
 
   deleteGuest(id: string) {
     return this.guestService.deleteGuest(id);
+  }
+
+  updateGuest(id: string, guestUpdate: GuestUpdate) {
+    return this.guestService.updateGuest(id, guestUpdate);
   }
 
   async createGuest(guestDto: GuestDto) {

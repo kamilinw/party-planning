@@ -1,4 +1,4 @@
-import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString, IsUUID, MaxLength } from "class-validator";
+import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString, MaxLength } from "class-validator";
 
 export class TaskUpdate {
   @IsOptional()
@@ -26,8 +26,4 @@ export class TaskUpdate {
   @IsOptional()
   @IsDateString()
   executionDate?: Date;
-
-  @IsOptional()
-  @IsUUID()
-  partyId: string;
 }
