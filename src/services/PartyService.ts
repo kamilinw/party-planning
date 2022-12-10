@@ -2,6 +2,7 @@ import { Inject, Service } from "@tsed/di";
 import { ResourceNotFoundException } from "../models/exception";
 import { PARTY_REPOSITORY } from "../repositories/PartyRepository";
 import { Party } from "../models/entity/Party";
+import { ValidationException } from "../models/exception/ValidationException";
 
 @Service()
 export class PartyService {
@@ -18,6 +19,12 @@ export class PartyService {
       .catch((error) => {
         throw new ResourceNotFoundException(error.message);
       });
+  }
+
+  deleteParty(id: string) {
+    return this.partyRepository.delete({ id }).catch((error) => {
+      throw new ValidationException(error.message);
+    });
   }
 
   getAllGuests(id: string) {

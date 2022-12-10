@@ -15,7 +15,6 @@ export class GuestController {
   }
 
   @Delete("/:id")
-  @Returns(204)
   async deleteGuest(@PathParams("id") id: string) {
     return await this.guestFacade.deleteGuest(id);
   }

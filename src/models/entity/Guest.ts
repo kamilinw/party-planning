@@ -34,7 +34,7 @@ export class Guest {
   @Required()
   confirmed: boolean;
 
-  @ManyToOne(() => Party, (party) => party.guests)
+  @ManyToOne(() => Party, (party) => party.guests, { onDelete: "CASCADE" })
   party?: Party;
 
   @UpdateDateColumn()

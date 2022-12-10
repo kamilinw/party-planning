@@ -3,19 +3,17 @@ import { PartyDto } from "../models/dto/PartyDto";
 import { PartyMapper } from "../mappers/PartyMapper";
 import { GuestService } from "../services/GuestService";
 import { PartyService } from "../services/PartyService";
-import { TaskService } from "../services/TaskService";
 
 @Service()
 export class PartyFacade {
-  constructor(
-    private partyMapper: PartyMapper,
-    private guestService: GuestService,
-    private partyService: PartyService,
-    private taskService: TaskService
-  ) {}
+  constructor(private partyMapper: PartyMapper, private guestService: GuestService, private partyService: PartyService) {}
 
   getParty(id: string) {
     return this.partyService.getParty(id);
+  }
+
+  deleteParty(id: string) {
+    return this.partyService.deleteParty(id);
   }
 
   getAllGuests(id: string) {

@@ -1,5 +1,5 @@
 import { Controller } from "@tsed/di";
-import { Get, Post, Returns } from "@tsed/schema";
+import { Delete, Get, Post, Returns } from "@tsed/schema";
 import { PartyDto } from "../models/dto/PartyDto";
 import { PartyFacade } from "../facades/PartyFacade";
 import { Party } from "../models/entity/Party";
@@ -7,6 +7,7 @@ import { BodyParams, PathParams } from "@tsed/platform-params";
 import { Guest } from "../models/entity/Guest";
 import { guestCount } from "../models/dto/GuestCount";
 import { Task } from "src/models/entity/Task";
+import { DeleteResult } from "typeorm";
 
 @Controller("/party")
 export class PartyController {
@@ -16,9 +17,10 @@ export class PartyController {
   getParty(@PathParams("id") id: string): Promise<Party> {
     return this.partyFacade.getParty(id);
   }
-  @Get("/:id/plannedCost")
-  getPlannedCost(@PathParams("id") id: string): Promise<Party> {
-    return this.partyFacade.getParty(id);
+
+  @Delete("/:id")
+  deleteParty(@PathParams("id") id: string): Promise<DeleteResult> {
+    return this.partyFacade.deleteParty(id);
   }
 
   @Get("/:id/guest")

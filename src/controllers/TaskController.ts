@@ -14,7 +14,6 @@ export class TaskController {
   }
 
   @Delete("/:id")
-  @Returns(204)
   async deleteTask(@PathParams("id") id: string) {
     return await this.taskFacade.deleteTask(id);
   }

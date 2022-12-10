@@ -39,7 +39,7 @@ export class Task {
   @Required()
   executionDate?: Date;
 
-  @ManyToOne(() => Party, (party) => party.tasks)
+  @ManyToOne(() => Party, (party) => party.tasks, { onDelete: "CASCADE" })
   party?: Party;
 
   @UpdateDateColumn()
