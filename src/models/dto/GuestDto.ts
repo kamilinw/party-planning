@@ -18,6 +18,10 @@ export class GuestDto {
   @IsBoolean()
   plusOne: boolean;
 
+  @IsOptional()
+  @IsBoolean()
+  confirmed: boolean;
+
   @IsString()
   @IsOptional()
   partyId?: string;

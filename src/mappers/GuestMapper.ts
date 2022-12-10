@@ -6,7 +6,6 @@ import { Guest } from "src/models/entity/Guest";
 export class GuestMapper {
   public toEntity(guestDto: GuestDto): Guest {
     return {
-      confirmed: false,
       ...guestDto
     };
   }

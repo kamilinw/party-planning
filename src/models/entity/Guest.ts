@@ -30,7 +30,7 @@ export class Guest {
   @Required()
   plusOne: boolean;
 
-  @Column()
+  @Column({ default: false })
   @Required()
   confirmed: boolean;
 
