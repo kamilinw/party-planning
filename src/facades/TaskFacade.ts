@@ -3,6 +3,7 @@ import { TaskDto } from "../models/dto/TaskDto";
 import { TaskMapper } from "../mappers/TaskMapper";
 import { TaskService } from "../services/TaskService";
 import { PartyService } from "../services/PartyService";
+import { TaskUpdate } from "../models/dto/TaskUpdate";
 
 @Service()
 export class TaskFacade {
@@ -14,6 +15,10 @@ export class TaskFacade {
 
   deleteTask(id: string) {
     return this.taskService.deleteTask(id);
+  }
+
+  updateTask(id: string, taskUpdate: TaskUpdate) {
+    return this.taskService.updateTask(id, taskUpdate);
   }
 
   async createTask(taskDto: TaskDto) {
