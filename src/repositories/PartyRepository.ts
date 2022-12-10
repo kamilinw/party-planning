@@ -17,6 +17,18 @@ export const PartyRepository = PostgresDataSource.getRepository(Party).extend({
       .addSelect("party.createdAt", "createdAt")
       .groupBy("party.id")
       .getRawOne();
+  },
+
+  getGuestsData(id: string): Promise<{ guestInvited: number; guestConfirmed: number }> {
+    return this.createQueryBuilder("party")
+      .leftJoinAndSelect("party.guests", "guest")
+      .andWhere("party.id = :id", { id })
+      .select(
+        "SUM(CASE WHEN guest.confirmed and guest.plusOne THEN 2 WHEN guest.confirmed and guest.plusOne = false THEN 1 END)",
+        "guestConfirmed"
+      )
+      .addSelect("sum(CASE WHEN guest.plusOne IS NOT NULL THEN( CASE WHEN guest.plusOne then 2 ELSE 1 END) END)", "guestInvited")
+      .getRawOne();
   }
 });
 

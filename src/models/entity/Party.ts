@@ -32,6 +32,12 @@ export class Party {
   @Required()
   expenses?: number;
 
+  @Required()
+  guestInvited?: number;
+
+  @Required()
+  guestConfirmed?: number;
+
   @OneToMany(() => Guest, (guest) => guest.party)
   guests?: Guest[];
 

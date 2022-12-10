@@ -9,8 +9,8 @@ export class PartyService {
   @Inject(PARTY_REPOSITORY)
   protected partyRepository: PARTY_REPOSITORY;
 
-  getParty(id: string) {
-    return this.partyRepository
+  async getParty(id: string) {
+    const party = await this.partyRepository
       .getPartyById(id)
       .then((party) => {
         if (!party) throw { message: `Party with id ${id} not found` };
@@ -19,6 +19,15 @@ export class PartyService {
       .catch((error) => {
         throw new ResourceNotFoundException(error.message);
       });
+
+    const guestData = await this.partyRepository.getGuestsData(id).then((guestData) => {
+      if (!guestData) throw { message: `Party with id ${id} not found` };
+      return guestData;
+    });
+    party.guestConfirmed = guestData.guestConfirmed;
+    party.guestInvited = guestData.guestInvited;
+
+    return party;
   }
 
   deleteParty(id: string) {
