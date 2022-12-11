@@ -5,7 +5,7 @@ import { PARTY_REPOSITORY } from "../repositories/PartyRepository";
 import { Guest } from "src/models/entity/Guest";
 import { In } from "typeorm";
 import { ValidationException } from "../models/exception/ValidationException";
-import { GuestUpdate } from "../models/dto/GuestUpdate";
+import { GuestUpdate } from "src/models/dto/GuestUpdate";
 
 @Service()
 export class GuestService {
