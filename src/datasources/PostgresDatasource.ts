@@ -4,6 +4,7 @@ import { Logger } from "@tsed/logger";
 import { Party } from "../models/entity/Party";
 import { Guest } from "../models/entity/Guest";
 import { Task } from "../models/entity/Task";
+import { User } from "../models/entity/User";
 
 export const rootDir = __dirname;
 
@@ -21,7 +22,7 @@ export const PostgresDataSource = new DataSource({
       rejectUnauthorized: false
     }
   },
-  entities: [Party, Guest, Task],
+  entities: [Party, Guest, Task, User],
   synchronize: true,
   logging: true
 });

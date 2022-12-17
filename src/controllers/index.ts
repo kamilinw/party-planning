@@ -5,3 +5,4 @@
 export * from "./PartyController";
 export * from "./GuestController";
 export * from "./TaskController";
+export * from "./AuthController";
