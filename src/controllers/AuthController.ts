@@ -1,6 +1,7 @@
 import { Controller } from "@tsed/di";
 import { BodyParams } from "@tsed/platform-params";
-import { Post } from "@tsed/schema";
+import { Post, Returns } from "@tsed/schema";
+import { User } from "../models/entity/User";
 import { AuthFacade } from "../facades/AuthFacade";
 import { RegisterInput } from "../models/dto/RegisterInput";
 
@@ -9,7 +10,8 @@ export class AuthController {
   constructor(private authFacade: AuthFacade) {}
 
   @Post("/register")
-  registerUser(@BodyParams() registerInput: RegisterInput) {
+  @Returns(201, User)
+  registerUser(@BodyParams() registerInput: RegisterInput): Promise<User> {
     return this.authFacade.registerUser(registerInput);
   }
 }

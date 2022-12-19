@@ -6,7 +6,8 @@ import { RegisterInput } from "../models/dto/RegisterInput";
 export class AuthFacade {
   constructor(private userService: UserService) {}
 
-  registerUser(registerInput: RegisterInput) {
-    return this.userService.saveUser({ ...registerInput });
+  async registerUser(registerInput: RegisterInput) {
+    const user = await this.userService.setupUserData(registerInput);
+    return this.userService.saveUser(user);
   }
 }
