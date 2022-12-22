@@ -4,7 +4,10 @@ import { Get, Post, Delete, Returns, Put, Partial } from "@tsed/schema";
 import { TaskUpdate } from "../models/dto/TaskUpdate";
 import { TaskFacade } from "../facades/TaskFacade";
 import { TaskDto } from "../models/dto/TaskDto";
+import { WithAuth } from "../decorators/WithAuth";
+import { UserRoles } from "../models/enums/UserRoles";
 
+@WithAuth({ roles: [UserRoles.USER] })
 @Controller("/task")
 export class TaskController {
   constructor(private taskFacade: TaskFacade) {}
