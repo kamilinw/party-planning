@@ -10,13 +10,10 @@ class AuthenticationMiddleware implements MiddlewareMethods {
   constructor(private tokenService: TokenService) {}
 
   use(@Req() request: Req, @Res() _response: Res, @Context() context: Context) {
-    console.log("here 0");
     const tokenString = this.tokenService.extractTokenFromRequest(request);
     const jwtToken = this.tokenService.parseToken(tokenString);
     const { role, sub } = jwtToken;
-    console.log("here 1");
     this.ensureUserHasPrivileges(role, context);
-    console.log("here 2");
     this.attachUserIdToContext(sub, context);
   }
 
