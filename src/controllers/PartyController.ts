@@ -3,13 +3,18 @@ import { Delete, Get, Post, Put, Returns } from "@tsed/schema";
 import { PartyDto } from "../models/dto/PartyDto";
 import { PartyFacade } from "../facades/PartyFacade";
 import { Party } from "../models/entity/Party";
-import { BodyParams, PathParams } from "@tsed/platform-params";
+import { BodyParams, Context, PathParams } from "@tsed/platform-params";
 import { Guest } from "../models/entity/Guest";
 import { Task } from "../models/entity/Task";
 import { DeleteResult, UpdateResult } from "typeorm";
 import { PartyUpdate } from "../models/dto/PartyUpdate";
+import { WithAuth } from "../decorators/WithAuth";
+import { UserRoles } from "../models/enums/UserRoles";
+
+const USER_ID_KEY = process.env.USER_ID_KEY ?? "user_id";
 
 @Controller("/party")
+@WithAuth({ roles: [UserRoles.USER] })
 export class PartyController {
   constructor(private partyFacade: PartyFacade) {}
 
@@ -40,7 +45,7 @@ export class PartyController {
 
   @Post("/")
   @Returns(201)
-  addParty(@BodyParams({ useValidation: true }) partyDto: PartyDto): Promise<Party> {
-    return this.partyFacade.createParty(partyDto);
+  addParty(@BodyParams({ useValidation: true }) partyDto: PartyDto, @Context(USER_ID_KEY) userId: string): Promise<Party> {
+    return this.partyFacade.createParty(partyDto, userId);
   }
 }

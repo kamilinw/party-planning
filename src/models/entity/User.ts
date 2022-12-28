@@ -1,7 +1,8 @@
 import { Required } from "@tsed/schema";
 import { IsEmail, IsEnum } from "class-validator";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserRoles } from "../enums/UserRoles";
+import { Party } from "./Party";
 
 @Entity()
 export class User {
@@ -22,6 +23,9 @@ export class User {
   @Column({ length: 16, enum: UserRoles, default: UserRoles.USER })
   @IsEnum(UserRoles)
   role?: string;
+
+  @OneToMany(() => Party, (party) => party.host)
+  parties?: Party[];
 
   @UpdateDateColumn()
   @Required()

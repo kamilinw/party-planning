@@ -5,6 +5,7 @@ import { ValidationException } from "../models/exception/ValidationException";
 import { AuthInput } from "../models/dto/AuthInput";
 import { hashPassword } from "../security/PassowrdUtils";
 import { UserRoles } from "../models/enums/UserRoles";
+import { ResourceNotFoundException } from "../models/exception";
 
 @Service()
 export class UserService {
@@ -19,6 +20,12 @@ export class UserService {
 
   getByEmail(email: string) {
     return this.userRepository.findOneBy({ email });
+  }
+
+  getById(id: string) {
+    return this.userRepository.findOneByOrFail({ id }).catch(() => {
+      throw new ResourceNotFoundException(`User with id ${id} not found!`);
+    });
   }
 
   async setupUserData(authInput: AuthInput): Promise<User> {

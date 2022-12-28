@@ -1,8 +1,9 @@
 import { Required } from "@tsed/schema";
 import { IsDate } from "class-validator";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Guest } from "./Guest";
 import { Task } from "./Task";
+import { User } from "./User";
 
 @Entity()
 export class Party {
@@ -43,6 +44,9 @@ export class Party {
 
   @OneToMany(() => Task, (task) => task.party)
   tasks?: Task[];
+
+  @ManyToOne(() => User, (user) => user.parties, { onDelete: "CASCADE" })
+  host?: User;
 
   @UpdateDateColumn()
   @Required()
