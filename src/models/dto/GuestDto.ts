@@ -1,5 +1,5 @@
 import { Required } from "@tsed/schema";
-import { IsBoolean, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
 
 export class GuestDto {
   @Required()
@@ -22,7 +22,7 @@ export class GuestDto {
   @IsBoolean()
   confirmed: boolean;
 
-  @IsString()
-  @IsOptional()
+  @Required()
+  @IsUUID()
   partyId?: string;
 }
