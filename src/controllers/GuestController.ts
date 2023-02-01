@@ -7,9 +7,15 @@ import { GuestDto } from "../models/dto/GuestDto";
 import { GuestUpdate } from "../models/dto/GuestUpdate";
 import { DeleteResult, UpdateResult } from "typeorm";
 
-@Controller("/guest")
+@Controller("/guests")
 export class GuestController {
   constructor(private guestFacade: GuestFacade) {}
+
+  @Post("/")
+  @Returns(201)
+  async addGuest(@BodyParams({ useValidation: true }) guestDto: GuestDto): Promise<Guest> {
+    return this.guestFacade.createGuest(guestDto);
+  }
 
   @Get("/:id")
   async getGuest(@PathParams("id") id: string): Promise<Guest> {
@@ -24,11 +30,5 @@ export class GuestController {
   @Patch("/:id")
   async updateGuest(@PathParams("id") id: string, @BodyParams() guestUpdate: GuestUpdate): Promise<UpdateResult> {
     return this.guestFacade.updateGuest(id, guestUpdate);
-  }
-
-  @Post("/")
-  @Returns(201)
-  async addGuest(@BodyParams({ useValidation: true }) guestDto: GuestDto): Promise<Guest> {
-    return this.guestFacade.createGuest(guestDto);
   }
 }

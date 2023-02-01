@@ -13,10 +13,16 @@ import { UserRoles } from "../models/enums/UserRoles";
 
 const USER_ID_KEY = process.env.USER_ID_KEY ?? "user_id";
 
-@Controller("/party")
+@Controller("/parties")
 @WithAuth({ roles: [UserRoles.USER] })
 export class PartyController {
   constructor(private partyFacade: PartyFacade) {}
+
+  @Post("/")
+  @Returns(201)
+  addParty(@BodyParams({ useValidation: true }) partyDto: PartyDto, @Context(USER_ID_KEY) userId: string): Promise<Party> {
+    return this.partyFacade.createParty(partyDto, userId);
+  }
 
   @Get("/:id")
   getParty(@PathParams("id") id: string): Promise<Party> {
@@ -28,24 +34,18 @@ export class PartyController {
     return this.partyFacade.deleteParty(id);
   }
 
-  @Get("/:id/guest")
-  getAllGuests(@PathParams("id") id: string): Promise<Guest[]> {
-    return this.partyFacade.getAllGuests(id);
-  }
-
   @Patch("/:id")
   updateParty(@PathParams("id") id: string, @BodyParams() @Partial() partyUpdate: PartyUpdate): Promise<UpdateResult> {
     return this.partyFacade.updateParty(id, partyUpdate);
   }
 
-  @Get("/:id/task")
-  getAllTasks(@PathParams("id") id: string): Promise<Task[]> {
-    return this.partyFacade.getAllTasks(id);
+  @Get("/:id/guests")
+  getAllGuests(@PathParams("id") id: string): Promise<Guest[]> {
+    return this.partyFacade.getAllGuests(id);
   }
 
-  @Post("/")
-  @Returns(201)
-  addParty(@BodyParams({ useValidation: true }) partyDto: PartyDto, @Context(USER_ID_KEY) userId: string): Promise<Party> {
-    return this.partyFacade.createParty(partyDto, userId);
+  @Get("/:id/tasks")
+  getAllTasks(@PathParams("id") id: string): Promise<Task[]> {
+    return this.partyFacade.getAllTasks(id);
   }
 }

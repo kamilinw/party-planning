@@ -7,10 +7,16 @@ import { TaskDto } from "../models/dto/TaskDto";
 import { WithAuth } from "../decorators/WithAuth";
 import { UserRoles } from "../models/enums/UserRoles";
 
-@Controller("/task")
+@Controller("/tasks")
 @WithAuth({ roles: [UserRoles.USER] })
 export class TaskController {
   constructor(private taskFacade: TaskFacade) {}
+
+  @Post("/")
+  @Returns(201)
+  createTask(@BodyParams() taskDto: TaskDto) {
+    return this.taskFacade.createTask(taskDto);
+  }
 
   @Get("/:id")
   async getTask(@PathParams("id") id: string) {
@@ -25,11 +31,5 @@ export class TaskController {
   @Patch("/:id")
   async updateTask(@PathParams("id") id: string, @BodyParams() @Partial() taskUpdate: TaskUpdate) {
     return await this.taskFacade.updateTask(id, taskUpdate);
-  }
-
-  @Post("/")
-  @Returns(201)
-  createTask(@BodyParams() taskDto: TaskDto) {
-    return this.taskFacade.createTask(taskDto);
   }
 }
