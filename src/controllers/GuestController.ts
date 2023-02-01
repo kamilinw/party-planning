@@ -1,5 +1,5 @@
 import { Controller } from "@tsed/di";
-import { Delete, Get, Post, Put, Returns } from "@tsed/schema";
+import { Delete, Get, Patch, Post, Returns } from "@tsed/schema";
 import { GuestFacade } from "../facades/GuestFacade";
 import { Guest } from "../models/entity/Guest";
 import { BodyParams, PathParams } from "@tsed/platform-params";
@@ -21,7 +21,7 @@ export class GuestController {
     return this.guestFacade.deleteGuest(id);
   }
 
-  @Put("/:id")
+  @Patch("/:id")
   async updateGuest(@PathParams("id") id: string, @BodyParams() guestUpdate: GuestUpdate): Promise<UpdateResult> {
     return this.guestFacade.updateGuest(id, guestUpdate);
   }

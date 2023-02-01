@@ -1,5 +1,5 @@
 import { Controller } from "@tsed/di";
-import { Delete, Get, Post, Put, Returns } from "@tsed/schema";
+import { Delete, Get, Partial, Patch, Post, Returns } from "@tsed/schema";
 import { PartyDto } from "../models/dto/PartyDto";
 import { PartyFacade } from "../facades/PartyFacade";
 import { Party } from "../models/entity/Party";
@@ -33,8 +33,8 @@ export class PartyController {
     return this.partyFacade.getAllGuests(id);
   }
 
-  @Put("/:id")
-  updateParty(@PathParams("id") id: string, @BodyParams() partyUpdate: PartyUpdate): Promise<UpdateResult> {
+  @Patch("/:id")
+  updateParty(@PathParams("id") id: string, @BodyParams() @Partial() partyUpdate: PartyUpdate): Promise<UpdateResult> {
     return this.partyFacade.updateParty(id, partyUpdate);
   }
 

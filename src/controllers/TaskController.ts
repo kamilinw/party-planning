@@ -1,14 +1,14 @@
 import { Controller } from "@tsed/di";
 import { BodyParams, PathParams } from "@tsed/platform-params";
-import { Get, Post, Delete, Returns, Put, Partial } from "@tsed/schema";
+import { Get, Post, Delete, Returns, Partial, Patch } from "@tsed/schema";
 import { TaskUpdate } from "../models/dto/TaskUpdate";
 import { TaskFacade } from "../facades/TaskFacade";
 import { TaskDto } from "../models/dto/TaskDto";
 import { WithAuth } from "../decorators/WithAuth";
 import { UserRoles } from "../models/enums/UserRoles";
 
-@WithAuth({ roles: [UserRoles.USER] })
 @Controller("/task")
+@WithAuth({ roles: [UserRoles.USER] })
 export class TaskController {
   constructor(private taskFacade: TaskFacade) {}
 
@@ -22,7 +22,7 @@ export class TaskController {
     return await this.taskFacade.deleteTask(id);
   }
 
-  @Put("/:id")
+  @Patch("/:id")
   async updateTask(@PathParams("id") id: string, @BodyParams() @Partial() taskUpdate: TaskUpdate) {
     return await this.taskFacade.updateTask(id, taskUpdate);
   }
